@@ -1,13 +1,14 @@
 /* ============================================
    PORTFOLIO — GAME/HUD AESTHETIC
    Color palette:
-     --bg:        #0D1B2A  (deep navy)
-     --yellow:    #F7C948  (primary accent)
-     --red:       #E63946  (tertiary accent)
-     --green:     #2EC4B6  (tertiary accent)
+     --bg:        #72b3e8  (sky blue)
+     --blue-dark: #659ee4  (darker blue accent)
+     --yellow:    #f6c060  (primary accent)
+     --red:       #db514a  (tertiary accent)
+     --green:     #8c9922  (tertiary accent)
      --white:     #FFFFFF  (text / UI)
-     --dim:       #8899AA  (muted text)
-     --surface:   #112233  (card / panel bg)
+     --dim:       #d0e4f5  (muted text)
+     --surface:   #5a9fd4  (card / panel bg)
 ============================================ */
 
 /* ---------- RESET & BASE ---------- */
@@ -18,16 +19,17 @@
 }
 
 :root {
-  --bg:       #0D1B2A;
-  --yellow:   #F7C948;
-  --red:      #E63946;
-  --green:    #2EC4B6;
-  --white:    #FFFFFF;
-  --dim:      #8899AA;
-  --surface:  #112233;
-  --glow-y:   0 0 8px #F7C948, 0 0 20px #F7C94844;
-  --glow-g:   0 0 8px #2EC4B6, 0 0 20px #2EC4B644;
-  --glow-r:   0 0 8px #E63946, 0 0 20px #E6394644;
+  --bg:        #72b3e8;
+  --blue-dark: #659ee4;
+  --yellow:    #f6c060;
+  --red:       #db514a;
+  --green:     #8c9922;
+  --white:     #FFFFFF;
+  --dim:       #d0e4f5;
+  --surface:   #5a9fd4;
+  --glow-y:   0 0 8px #f6c060, 0 0 20px #f6c06044;
+  --glow-g:   0 0 8px #8c9922, 0 0 20px #8c992244;
+  --glow-r:   0 0 8px #db514a, 0 0 20px #db514a44;
   --mono:     'Courier New', Courier, monospace;
   --sans:     'Segoe UI', system-ui, sans-serif;
 }
@@ -49,8 +51,8 @@ body::before {
   position: fixed;
   inset: 0;
   background-image:
-    linear-gradient(rgba(247,201,72,0.03) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(247,201,72,0.03) 1px, transparent 1px);
+    linear-gradient(rgba(246,192,96,0.06) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(246,192,96,0.06) 1px, transparent 1px);
   background-size: 40px 40px;
   pointer-events: none;
   z-index: 0;
@@ -109,9 +111,9 @@ code, .mono {
   justify-content: space-between;
   align-items: center;
   padding: 1rem 2.5rem;
-  background: rgba(13, 27, 42, 0.85);
+  background: rgba(101, 158, 228, 0.9);
   backdrop-filter: blur(6px);
-  border-bottom: 1px solid rgba(247,201,72,0.2);
+  border-bottom: 1px solid rgba(246,192,96,0.35);
   z-index: 100;
 }
 
@@ -147,7 +149,7 @@ code, .mono {
 /* ---------- HUD CORNERS (reusable) ---------- */
 .hud-box {
   position: relative;
-  border: 1px solid rgba(247,201,72,0.25);
+  border: 1px solid rgba(246,192,96,0.4);
   padding: 2rem;
 }
 
@@ -342,7 +344,7 @@ code, .mono {
   width: 100%;
   max-width: 360px;
   display: block;
-  border: 2px solid rgba(247,201,72,0.3);
+  border: 2px solid rgba(246,192,96,0.4);
   filter: grayscale(20%);
   transition: filter 0.3s;
 }
@@ -353,7 +355,7 @@ code, .mono {
   content: '';
   position: absolute;
   inset: -8px;
-  border: 1px solid rgba(247,201,72,0.15);
+  border: 1px solid rgba(246,192,96,0.25);
   pointer-events: none;
 }
 
@@ -394,7 +396,7 @@ code, .mono {
 /* ---------- PROJECTS ---------- */
 #projects {
   padding: 7rem 10vw;
-  background: rgba(17,34,51,0.5);
+  background: rgba(101, 158, 228, 0.4);
 }
 
 .projects-grid {
@@ -406,7 +408,7 @@ code, .mono {
 
 .project-card {
   background: var(--surface);
-  border: 1px solid rgba(247,201,72,0.15);
+  border: 1px solid rgba(246,192,96,0.25);
   padding: 1.5rem;
   position: relative;
   transition: border-color 0.3s, box-shadow 0.3s, transform 0.3s;
@@ -526,7 +528,7 @@ code, .mono {
 /* ---------- CONTACT ---------- */
 #contact {
   padding: 7rem 10vw;
-  background: rgba(17,34,51,0.5);
+  background: rgba(101, 158, 228, 0.4);
   text-align: center;
 }
 
@@ -556,8 +558,8 @@ code, .mono {
   gap: 0.5rem;
   font-family: var(--mono);
   font-size: 0.85rem;
-  color: var(--dim);
-  border: 1px solid rgba(255,255,255,0.1);
+  color: var(--white);
+  border: 1px solid rgba(255,255,255,0.3);
   padding: 0.75rem 1.25rem;
   transition: color 0.2s, border-color 0.2s, box-shadow 0.2s;
 }
@@ -577,13 +579,13 @@ code, .mono {
 /* ---------- FOOTER ---------- */
 footer {
   padding: 1.5rem 2.5rem;
-  border-top: 1px solid rgba(247,201,72,0.15);
+  border-top: 1px solid rgba(246,192,96,0.3);
   display: flex;
   justify-content: space-between;
   align-items: center;
   font-family: var(--mono);
   font-size: 0.75rem;
-  color: var(--dim);
+  color: var(--white);
 }
 
 footer span { color: var(--yellow); }
