@@ -1,241 +1,787 @@
----
-layout: default
-title: Portfolio
----
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Lily Vengco</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Fredoka+One&family=Nunito:ital,wght@0,400;0,600;0,700;0,800;1,400;1,700&display=swap" rel="stylesheet" />
+  <style>
+    :root {
+      --sky: #7ecef4;
+      --sky-dark: #5bb8f5;
+      --awning-orange: #e8522a;
+      --awning-yellow: #f5c842;
+      --sign-green: #5a9e2f;
+      --sign-green-dark: #3a7018;
+      --sign-purple: #9b5ea2;
+      --sign-purple-dark: #6b3a75;
+      --sign-brown: #b8833a;
+      --sign-brown-dark: #7a5120;
+      --sign-red: #c4344a;
+      --sign-red-dark: #8f1f32;
+      --wood: #5a3010;
+      --cream: #fdf6e3;
+      --text-dark: #2d1a00;
+      --text-mid: #5a3a10;
+      --card-bg: rgba(255,255,255,0.85);
+      --font-display: 'Fredoka One', cursive;
+      --font-body: 'Nunito', sans-serif;
+    }
 
-<!-- ============================================================
-     HERO
-============================================================ -->
-<section id="hero">
-  <p class="hero-prefix">initializing portfolio...</p>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
 
-  <h1 class="hero-name">
-    Your<br><span class="highlight">Name Here</span>
-  </h1>
+    html { scroll-behavior: smooth; }
 
-  <p class="hero-title">
-    <span class="typed-text" data-phrases='["Software Developer","Creative Builder","Problem Solver"]'>Software Developer</span><span class="blink"></span>
-  </p>
+    body {
+      font-family: var(--font-body);
+      background: var(--cream);
+      color: var(--text-dark);
+      overflow-x: hidden;
+    }
 
-  <p class="hero-tagline">
-    A brief, punchy tagline about what you do and what you love building.
-    Replace this once you're ready.
-  </p>
+    /* ===================== HEADER ===================== */
+    #site-header {
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      width: 100%;
+      background: repeating-linear-gradient(
+        90deg,
+        var(--awning-orange) 0px, var(--awning-orange) 60px,
+        var(--awning-yellow) 60px, var(--awning-yellow) 120px
+      );
+      padding: 0 40px;
+      overflow: visible;
+    }
 
-  <div class="hero-cta">
-    <a href="#projects" class="btn btn-filled">[ View Projects ]</a>
-    <a href="#contact" class="btn">[ Contact Me ]</a>
-  </div>
-</section>
+    .header-inner {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      overflow: visible;
+      position: relative;
+    }
 
-<!-- ============================================================
-     ABOUT
-============================================================ -->
-<section id="about">
-  <div class="reveal">
-    <span class="section-label">// 01 — About</span>
-    <h2 class="section-title">Who Am <span class="accent">I?</span></h2>
-  </div>
+    /* Scallop bottom edge */
+    #site-header::after {
+      content: '';
+      position: absolute;
+      bottom: -28px;
+      left: 0; right: 0;
+      height: 30px;
+      background:
+        radial-gradient(circle at 50% 0%, transparent 20px, var(--awning-orange) 21px) -30px 0 / 60px 30px,
+        radial-gradient(circle at 50% 0%, transparent 20px, var(--awning-yellow) 21px) 0px 0 / 60px 30px;
+      background-repeat: repeat-x;
+      pointer-events: none;
+    }
 
-  <div class="about-grid">
-    <!-- Photo -->
-    <div class="about-photo-frame reveal">
-      <!-- Replace src with your actual photo path: assets/images/your-photo.jpg -->
-      <img src="{{ '/assets/images/placeholder.jpg' | relative_url }}"
-           alt="Profile photo"
-           onerror="this.style.display='none'" />
-      <!-- Fallback box when no photo yet -->
-      <div class="hud-box" style="min-height:320px;display:flex;align-items:center;justify-content:center;color:var(--dim);font-family:var(--mono);font-size:0.8rem;">
-        <span class="corner-bl"></span>
-        <span class="corner-br"></span>
-        [ PHOTO GOES HERE ]
-      </div>
+    /* Logo sign */
+    .logo-sign-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      cursor: pointer;
+      text-decoration: none;
+      flex-shrink: 0;
+    }
+    .logo-string {
+      width: 3px;
+      height: 20px;
+      background: var(--wood);
+      border-radius: 2px;
+    }
+    .logo-sign {
+      background: var(--sign-red);
+      color: white;
+      font-family: var(--font-display);
+      font-size: 15px;
+      letter-spacing: 1px;
+      text-align: center;
+      line-height: 1.3;
+      padding: 10px 16px;
+      border-radius: 8px;
+      box-shadow: 0 5px 0 rgba(0,0,0,0.2), inset 0 1px 0 rgba(255,255,255,0.2);
+      text-shadow: 1px 2px 0 rgba(0,0,0,0.25);
+      transition: transform 0.15s, background 0.15s;
+      white-space: nowrap;
+    }
+    .logo-sign-wrap:hover .logo-sign {
+      background: var(--sign-red-dark);
+      transform: scale(0.97) translateY(2px);
+    }
+
+    /* Nav */
+    nav {
+      display: flex;
+      align-items: flex-start;
+      gap: 20px;
+      overflow: visible;
+    }
+
+    .nav-sign-wrap {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      text-decoration: none;
+      overflow: visible;
+    }
+
+    .nav-string {
+      width: 3px;
+      border-radius: 2px;
+      background: var(--wood);
+      height: 16px;
+      transition: height 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+      flex-shrink: 0;
+    }
+
+    .nav-sign {
+      font-family: var(--font-display);
+      font-size: 17px;
+      letter-spacing: 2px;
+      text-transform: uppercase;
+      color: white;
+      padding: 12px 22px;
+      border-radius: 8px;
+      box-shadow: 0 5px 0 rgba(0,0,0,0.22), inset 0 1px 0 rgba(255,255,255,0.2);
+      text-shadow: 1px 2px 0 rgba(0,0,0,0.25);
+      transform: translateY(-40px);
+      transition: transform 0.4s cubic-bezier(0.34, 1.56, 0.64, 1), background 0.2s, box-shadow 0.2s;
+      white-space: nowrap;
+      min-width: 100px;
+      text-align: center;
+    }
+
+    .nav-sign-wrap:hover .nav-string,
+    .nav-sign-wrap.active .nav-string { height: 42px; }
+
+    .nav-sign-wrap:hover .nav-sign,
+    .nav-sign-wrap.active .nav-sign { transform: translateY(0); }
+
+    .nav-sign-wrap.active .nav-sign {
+      box-shadow: 0 2px 0 rgba(0,0,0,0.2), inset 0 3px 6px rgba(0,0,0,0.25);
+    }
+
+    .nav-sign.green  { background: var(--sign-green); }
+    .nav-sign.purple { background: var(--sign-purple); }
+    .nav-sign.brown  { background: var(--sign-brown); }
+
+    .nav-sign-wrap.active .nav-sign.green  { background: var(--sign-green-dark); }
+    .nav-sign-wrap.active .nav-sign.purple { background: var(--sign-purple-dark); }
+    .nav-sign-wrap.active .nav-sign.brown  { background: var(--sign-brown-dark); }
+
+    /* Social icons in header */
+    .header-social {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding-top: 14px;
+      flex-shrink: 0;
+    }
+    .header-social a {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      width: 36px; height: 36px;
+      background: rgba(255,255,255,0.3);
+      border-radius: 50%;
+      color: white;
+      text-decoration: none;
+      font-size: 16px;
+      transition: background 0.2s, transform 0.2s;
+    }
+    .header-social a:hover {
+      background: rgba(255,255,255,0.55);
+      transform: scale(1.1);
+    }
+
+    /* ===================== PAGE SECTIONS ===================== */
+    .page { display: none; }
+    .page.active { display: block; }
+
+    /* ===================== HERO / DIVIDER ===================== */
+    .sky-bg {
+      background: linear-gradient(180deg, var(--sky) 0%, #b8e8ff 100%);
+      padding: 70px 0 0 0;
+      position: relative;
+    }
+
+    .wave-divider {
+      width: 100%;
+      display: block;
+      margin-bottom: -2px;
+    }
+
+    /* ===================== PORTFOLIO SECTION ===================== */
+    .section-title-wrap {
+      text-align: center;
+      padding: 60px 20px 10px;
+    }
+    .section-title {
+      font-family: var(--font-display);
+      font-size: clamp(2.5rem, 6vw, 4.5rem);
+      color: var(--text-dark);
+      letter-spacing: 2px;
+    }
+    .section-subtitle {
+      font-size: 1.1rem;
+      color: var(--text-mid);
+      margin-top: 8px;
+    }
+
+    .projects-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 32px;
+      max-width: 1200px;
+      margin: 48px auto 80px;
+      padding: 0 40px;
+    }
+
+    .project-card {
+      background: var(--card-bg);
+      border-radius: 16px;
+      overflow: hidden;
+      box-shadow: 0 6px 0 rgba(0,0,0,0.1), 0 2px 16px rgba(0,0,0,0.08);
+      transition: transform 0.3s cubic-bezier(0.34, 1.56, 0.64, 1), box-shadow 0.3s;
+      cursor: pointer;
+      text-decoration: none;
+      display: block;
+      color: inherit;
+    }
+    .project-card:hover {
+      transform: translateY(-8px) rotate(-0.5deg);
+      box-shadow: 0 14px 0 rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.12);
+    }
+
+    .project-card-img {
+      width: 100%;
+      height: 220px;
+      object-fit: cover;
+      display: block;
+    }
+    .project-card-img-placeholder {
+      width: 100%;
+      height: 220px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 3rem;
+    }
+
+    .project-card-body {
+      padding: 20px 24px 24px;
+    }
+
+    .project-card-tag {
+      display: inline-flex;
+      gap: 6px;
+      flex-wrap: wrap;
+      margin-bottom: 10px;
+    }
+    .tag {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 1px;
+      text-transform: uppercase;
+      padding: 3px 10px;
+      border-radius: 20px;
+      color: white;
+    }
+    .tag.green  { background: var(--sign-green); }
+    .tag.purple { background: var(--sign-purple); }
+    .tag.brown  { background: var(--sign-brown); }
+    .tag.red    { background: var(--sign-red); }
+    .tag.blue   { background: #3a7fc1; }
+
+    .project-card-title {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: var(--text-dark);
+      margin-bottom: 6px;
+    }
+    .project-card-subtitle {
+      font-size: 0.9rem;
+      color: var(--text-mid);
+      margin-bottom: 16px;
+      line-height: 1.5;
+    }
+    .project-card-tools {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+      font-size: 0.78rem;
+      color: var(--text-mid);
+      font-weight: 600;
+    }
+    .project-card-tools span::after { content: ' ·'; }
+    .project-card-tools span:last-child::after { content: ''; }
+
+    .explore-btn {
+      display: inline-block;
+      margin-top: 16px;
+      padding: 10px 24px;
+      background: var(--sign-green);
+      color: white;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 1.5px;
+      text-transform: uppercase;
+      border-radius: 8px;
+      text-decoration: none;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+      transition: transform 0.15s, box-shadow 0.15s, background 0.15s;
+    }
+    .explore-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 rgba(0,0,0,0.2);
+      background: var(--sign-green-dark);
+    }
+    .explore-btn.purple { background: var(--sign-purple); }
+    .explore-btn.purple:hover { background: var(--sign-purple-dark); }
+    .explore-btn.brown { background: var(--sign-brown); }
+    .explore-btn.brown:hover { background: var(--sign-brown-dark); }
+    .explore-btn.blue { background: #3a7fc1; }
+    .explore-btn.blue:hover { background: #2a5f91; }
+
+    /* ===================== ABOUT PAGE ===================== */
+    .about-wrap {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 60px 40px 80px;
+    }
+    .about-hero {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      margin-bottom: 60px;
+    }
+    @media (max-width: 680px) {
+      .about-hero { grid-template-columns: 1fr; }
+    }
+    .about-photo {
+      width: 100%;
+      border-radius: 16px;
+      box-shadow: 6px 6px 0 var(--sign-brown);
+      display: block;
+    }
+    .about-text h1 {
+      font-family: var(--font-display);
+      font-size: 2.8rem;
+      color: var(--text-dark);
+      margin-bottom: 16px;
+    }
+    .about-text p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      margin-bottom: 16px;
+    }
+
+    .skills-section h2 {
+      font-family: var(--font-display);
+      font-size: 2rem;
+      color: var(--text-dark);
+      margin-bottom: 24px;
+    }
+    .skills-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 16px;
+      margin-bottom: 48px;
+    }
+    .skill-card {
+      background: var(--card-bg);
+      border-radius: 12px;
+      padding: 16px 20px;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.08);
+    }
+    .skill-card h3 {
+      font-family: var(--font-display);
+      font-size: 1rem;
+      margin-bottom: 8px;
+      color: var(--text-dark);
+    }
+    .skill-card p {
+      font-size: 0.85rem;
+      color: var(--text-mid);
+      line-height: 1.5;
+    }
+
+    /* ===================== MUSIC PAGE ===================== */
+    .music-wrap {
+      max-width: 800px;
+      margin: 0 auto;
+      padding: 60px 40px 80px;
+    }
+    .music-wrap h1 {
+      font-family: var(--font-display);
+      font-size: 3rem;
+      color: var(--text-dark);
+      margin-bottom: 8px;
+    }
+    .music-wrap .ep-label {
+      font-family: var(--font-display);
+      font-size: 1.1rem;
+      color: var(--sign-purple);
+      letter-spacing: 3px;
+      text-transform: uppercase;
+      margin-bottom: 20px;
+      display: block;
+    }
+    .music-wrap p {
+      font-size: 1.05rem;
+      line-height: 1.8;
+      color: var(--text-mid);
+      margin-bottom: 32px;
+      max-width: 600px;
+    }
+    .music-embed-placeholder {
+      background: var(--card-bg);
+      border-radius: 16px;
+      padding: 32px;
+      text-align: center;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.08);
+      color: var(--text-mid);
+      font-size: 0.95rem;
+      margin-bottom: 24px;
+    }
+    .music-embed-placeholder .note {
+      font-size: 2.5rem;
+      margin-bottom: 12px;
+    }
+    .music-platform-links {
+      display: flex;
+      gap: 14px;
+      flex-wrap: wrap;
+      margin-top: 24px;
+    }
+    .platform-btn {
+      padding: 12px 28px;
+      border-radius: 8px;
+      font-family: var(--font-display);
+      font-size: 1rem;
+      letter-spacing: 1px;
+      color: white;
+      text-decoration: none;
+      box-shadow: 0 4px 0 rgba(0,0,0,0.2);
+      transition: transform 0.15s, box-shadow 0.15s;
+    }
+    .platform-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 0 rgba(0,0,0,0.2);
+    }
+    .platform-btn.purple { background: var(--sign-purple); }
+    .platform-btn.green  { background: var(--sign-green); }
+
+    /* ===================== FOOTER ===================== */
+    footer {
+      background: var(--text-dark);
+      color: rgba(255,255,255,0.7);
+      text-align: center;
+      padding: 32px 20px;
+      font-size: 0.9rem;
+    }
+    footer a { color: var(--awning-yellow); text-decoration: none; }
+    footer .footer-name {
+      font-family: var(--font-display);
+      font-size: 1.4rem;
+      color: white;
+      margin-bottom: 8px;
+    }
+    .footer-socials {
+      display: flex;
+      justify-content: center;
+      gap: 16px;
+      margin: 16px 0;
+    }
+    .footer-socials a {
+      color: rgba(255,255,255,0.7);
+      font-size: 0.85rem;
+      transition: color 0.2s;
+    }
+    .footer-socials a:hover { color: var(--awning-yellow); }
+
+    /* ===================== ANIMATIONS ===================== */
+    @keyframes floatIn {
+      from { opacity: 0; transform: translateY(30px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+    .page.active .project-card {
+      animation: floatIn 0.5s ease both;
+    }
+    .page.active .project-card:nth-child(2) { animation-delay: 0.07s; }
+    .page.active .project-card:nth-child(3) { animation-delay: 0.14s; }
+    .page.active .project-card:nth-child(4) { animation-delay: 0.21s; }
+
+    /* ===================== RESPONSIVE ===================== */
+    @media (max-width: 600px) {
+      #site-header { padding: 0 16px; }
+      .projects-grid { padding: 0 16px; gap: 20px; }
+      .about-wrap, .music-wrap { padding: 40px 16px 60px; }
+      nav { gap: 10px; }
+      .nav-sign { font-size: 14px; padding: 10px 14px; min-width: 80px; }
+      .header-social { gap: 6px; }
+    }
+  </style>
+</head>
+<body>
+
+<!-- ==================== HEADER ==================== -->
+<header id="site-header">
+  <div class="header-inner">
+
+    <!-- Logo sign -->
+    <a class="logo-sign-wrap" href="#" onclick="scrollToTop(event)">
+      <div class="logo-string"></div>
+      <div class="logo-sign">Lily ★<br>Vengco</div>
+    </a>
+
+    <!-- Nav signs -->
+    <nav>
+      <a class="nav-sign-wrap active" href="#" onclick="showPage('portfolio', this, event)">
+        <div class="nav-string"></div>
+        <div class="nav-sign green">Portfolio</div>
+      </a>
+      <a class="nav-sign-wrap" href="#" onclick="showPage('music', this, event)">
+        <div class="nav-string"></div>
+        <div class="nav-sign purple">Music</div>
+      </a>
+      <a class="nav-sign-wrap" href="#" onclick="showPage('about', this, event)">
+        <div class="nav-string"></div>
+        <div class="nav-sign brown">About</div>
+      </a>
+    </nav>
+
+    <!-- Social icons -->
+    <div class="header-social">
+      <a href="mailto:lavengco@outlook.com" title="Email" aria-label="Email">✉</a>
+      <a href="https://www.instagram.com/lilyvengco/" target="_blank" title="Instagram" aria-label="Instagram">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zm0-2.163c-3.259 0-3.667.014-4.947.072-4.358.2-6.78 2.618-6.98 6.98-.059 1.281-.073 1.689-.073 4.948 0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98 1.281.058 1.689.072 4.948.072 3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98-1.281-.059-1.69-.073-4.949-.073zm0 5.838c-3.403 0-6.162 2.759-6.162 6.162s2.759 6.163 6.162 6.163 6.162-2.759 6.162-6.163c0-3.403-2.759-6.162-6.162-6.162zm0 10.162c-2.209 0-4-1.79-4-4 0-2.209 1.791-4 4-4s4 1.791 4 4c0 2.21-1.791 4-4 4zm6.406-11.845c-.796 0-1.441.645-1.441 1.44s.645 1.44 1.441 1.44c.795 0 1.439-.645 1.439-1.44s-.644-1.44-1.439-1.44z"/></svg>
+      </a>
+      <a href="https://www.youtube.com/channel/UC3xsCpmBGsyxOgPngeBtn0g" target="_blank" title="YouTube" aria-label="YouTube">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M23.495 6.205a3.007 3.007 0 0 0-2.088-2.088c-1.87-.501-9.396-.501-9.396-.501s-7.507-.01-9.396.501A3.007 3.007 0 0 0 .527 6.205a31.247 31.247 0 0 0-.522 5.805 31.247 31.247 0 0 0 .522 5.783 3.007 3.007 0 0 0 2.088 2.088c1.868.502 9.396.502 9.396.502s7.506 0 9.396-.502a3.007 3.007 0 0 0 2.088-2.088 31.247 31.247 0 0 0 .5-5.783 31.247 31.247 0 0 0-.5-5.805zM9.609 15.601V8.408l6.264 3.602z"/></svg>
+      </a>
+      <a href="https://www.tiktok.com/@its.stanza" target="_blank" title="TikTok" aria-label="TikTok">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor"><path d="M19.59 6.69a4.83 4.83 0 0 1-3.77-4.25V2h-3.45v13.67a2.89 2.89 0 0 1-2.88 2.5 2.89 2.89 0 0 1-2.89-2.89 2.89 2.89 0 0 1 2.89-2.89c.28 0 .54.04.79.1V9.01a6.33 6.33 0 0 0-.79-.05 6.34 6.34 0 0 0-6.34 6.34 6.34 6.34 0 0 0 6.34 6.34 6.34 6.34 0 0 0 6.33-6.34V8.69a8.18 8.18 0 0 0 4.78 1.52V6.75a4.85 4.85 0 0 1-1.01-.06z"/></svg>
+      </a>
     </div>
 
-    <!-- Bio -->
-    <div class="about-bio reveal">
-      <p>
-        Hey! I'm <strong style="color:var(--yellow)">Your Name</strong> — a short sentence
-        about your background and what drives you. Be yourself here.
-      </p>
-      <p>
-        Another sentence or two about your interests, studies, or goals.
-        Keep it conversational and genuine.
-      </p>
-
-      <div class="stats-grid">
-        <div class="stat-item">
-          <div class="stat-label">Location</div>
-          <div class="stat-value">Your City, State</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">Currently</div>
-          <div class="stat-value">Student / Role</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">Studying</div>
-          <div class="stat-value">Your Major</div>
-        </div>
-        <div class="stat-item">
-          <div class="stat-label">Available</div>
-          <div class="stat-value" style="color:var(--green)">Open to Opportunities</div>
-        </div>
-      </div>
-
-      <div style="margin-top:2rem;">
-        <a href="{{ '/assets/images/resume.pdf' | relative_url }}" class="btn btn-green" target="_blank">[ Download Resume ]</a>
-      </div>
-    </div>
   </div>
-</section>
+</header>
 
-<!-- ============================================================
-     PROJECTS
-============================================================ -->
-<section id="projects">
-  <div class="reveal">
-    <span class="section-label">// 02 — Projects</span>
-    <h2 class="section-title">What I've <span class="accent">Built</span></h2>
+<!-- ==================== PORTFOLIO PAGE ==================== -->
+<div id="page-portfolio" class="page active">
+
+  <!-- Sky hero area -->
+  <div class="sky-bg">
+    <svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 Z" fill="#fdf6e3"/>
+    </svg>
+  </div>
+
+  <div class="section-title-wrap">
+    <h1 class="section-title">Projects</h1>
+    <p class="section-subtitle">A collection of work across immersive tech, 3D, animation, and illustration</p>
   </div>
 
   <div class="projects-grid">
 
-    <!-- Project 01 -->
-    <div class="project-card reveal" data-index="01">
-      <span class="project-tag">Web</span>
-      <h3>Project Title One</h3>
-      <p>A short description of what this project does, the problem it solves, and what makes it interesting.</p>
-      <div class="project-links">
-        <a href="#" target="_blank">GitHub →</a>
-        <a href="#" target="_blank">Live Demo →</a>
+    <!-- Card 1: Animatics -->
+    <a class="project-card" href="https://lilyvengco.squarespace.com/project-page" target="_blank">
+      <img class="project-card-img"
+        src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/1712688691835-6MQVS1S0C1KCTMZJ2JOS/5.jpg"
+        alt="Animatics project" loading="lazy" />
+      <div class="project-card-body">
+        <div class="project-card-tag">
+          <span class="tag red">Animation</span>
+          <span class="tag brown">Motion</span>
+        </div>
+        <div class="project-card-title">Animatics, Storyboards & Motion Media</div>
+        <div class="project-card-subtitle">Sequential storytelling and motion work combining rhythm and visuals.</div>
+        <div class="project-card-tools">
+          <span>Clip Studio Paint</span>
+          <span>Premiere Pro</span>
+          <span>After Effects</span>
+          <span>Photoshop</span>
+        </div>
+        <span class="explore-btn brown">Explore →</span>
       </div>
-    </div>
+    </a>
 
-    <!-- Project 02 -->
-    <div class="project-card reveal" data-index="02">
-      <span class="project-tag">App</span>
-      <h3>Project Title Two</h3>
-      <p>Brief description of this project. What tech stack? What did you learn building it?</p>
-      <div class="project-links">
-        <a href="#" target="_blank">GitHub →</a>
-        <a href="#" target="_blank">Live Demo →</a>
+    <!-- Card 2: Video Games -->
+    <a class="project-card" href="https://lilyvengco.squarespace.com/video-games" target="_blank">
+      <img class="project-card-img"
+        src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/1739975133245-NFPISZJ6U1CXC0JIOJEC/HighresScreenshot00000.png"
+        alt="Video Games project" loading="lazy" />
+      <div class="project-card-body">
+        <div class="project-card-tag">
+          <span class="tag green">VR / XR</span>
+          <span class="tag blue">Games</span>
+        </div>
+        <div class="project-card-title">Video Games & Immersive Experiences</div>
+        <div class="project-card-subtitle">Real-time interactive worlds built for VR, XR, and game platforms.</div>
+        <div class="project-card-tools">
+          <span>Unreal Engine</span>
+          <span>Unity</span>
+          <span>Blender</span>
+        </div>
+        <span class="explore-btn">Explore →</span>
       </div>
-    </div>
+    </a>
 
-    <!-- Project 03 -->
-    <div class="project-card reveal" data-index="03">
-      <span class="project-tag">Data</span>
-      <h3>Project Title Three</h3>
-      <p>Another project description. Feel free to add as many cards as you need — the grid adapts automatically.</p>
-      <div class="project-links">
-        <a href="#" target="_blank">GitHub →</a>
+    <!-- Card 3: 3D -->
+    <a class="project-card" href="https://lilyvengco.squarespace.com/portfoliogridbasic3d" target="_blank">
+      <img class="project-card-img"
+        src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/d2aa9e94-2760-4d42-8d9d-ade81720080f/A4_Vengco_Render1.png"
+        alt="3D work" loading="lazy" />
+      <div class="project-card-body">
+        <div class="project-card-tag">
+          <span class="tag purple">3D</span>
+        </div>
+        <div class="project-card-title">3D Models, Materials & Animation</div>
+        <div class="project-card-subtitle">Sculpted characters, environment assets, and rendered scenes.</div>
+        <div class="project-card-tools">
+          <span>Autodesk Maya</span>
+          <span>Substance Painter</span>
+          <span>Blender</span>
+          <span>Photoshop</span>
+        </div>
+        <span class="explore-btn purple">Explore →</span>
       </div>
-    </div>
+    </a>
+
+    <!-- Card 4: 2D Illustration -->
+    <a class="project-card" href="https://lilyvengco.squarespace.com/894134257680" target="_blank">
+      <img class="project-card-img"
+        src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/d34f9408-8095-4841-8915-907412b46b2a/Wizard+Stairway.png"
+        alt="2D Illustration" loading="lazy" />
+      <div class="project-card-body">
+        <div class="project-card-tag">
+          <span class="tag green">Illustration</span>
+        </div>
+        <div class="project-card-title">2D Illustration & Character Design</div>
+        <div class="project-card-subtitle">Digital paintings, character sheets, and concept art with a storytelling eye.</div>
+        <div class="project-card-tools">
+          <span>Clip Studio Paint</span>
+          <span>Photoshop</span>
+        </div>
+        <span class="explore-btn">Explore →</span>
+      </div>
+    </a>
 
   </div>
-</section>
+</div>
 
-<!-- ============================================================
-     SKILLS
-============================================================ -->
-<section id="skills">
-  <div class="reveal">
-    <span class="section-label">// 03 — Skills</span>
-    <h2 class="section-title">My <span class="accent">Toolkit</span></h2>
+<!-- ==================== MUSIC PAGE ==================== -->
+<div id="page-music" class="page">
+  <div class="sky-bg">
+    <svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 Z" fill="#fdf6e3"/>
+    </svg>
   </div>
 
-  <div class="skills-container reveal">
+  <div class="music-wrap">
+    <span class="ep-label">EP 01</span>
+    <h1>Music</h1>
+    <p>Though visual art and creative technology is my primary passion, I'm also a trained musician! I released three tracks in high school — all in 2020 — and everything was written, produced, and performed entirely by me.</p>
 
-    <div class="skill-group">
-      <h4>Languages</h4>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Python</span><span>85%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-level="85"></div></div>
-      </div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>JavaScript</span><span>75%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-level="75"></div></div>
-      </div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>HTML / CSS</span><span>90%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-level="90"></div></div>
-      </div>
+    <div class="music-embed-placeholder">
+      <div class="note">🎵</div>
+      <p style="margin:0; color: var(--text-mid);">Add your Spotify, SoundCloud, or Bandcamp embed code here.<br><small>Paste an &lt;iframe&gt; embed directly into this file.</small></p>
     </div>
 
-    <div class="skill-group">
-      <h4>Frameworks & Tools</h4>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>React</span><span>70%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-level="70"></div></div>
-      </div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Git / GitHub</span><span>80%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-level="80"></div></div>
-      </div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>VS Code</span><span>90%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-level="90"></div></div>
-      </div>
+    <div class="music-platform-links">
+      <a class="platform-btn purple" href="https://open.spotify.com" target="_blank">Spotify</a>
+      <a class="platform-btn green" href="https://soundcloud.com" target="_blank">SoundCloud</a>
     </div>
-
-    <div class="skill-group">
-      <h4>Other Skills</h4>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Skill Name</span><span>75%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-level="75"></div></div>
-      </div>
-      <div class="skill-bar-wrap">
-        <div class="skill-bar-label"><span>Skill Name</span><span>65%</span></div>
-        <div class="skill-bar"><div class="skill-bar-fill" data-level="65"></div></div>
-      </div>
-    </div>
-
   </div>
-</section>
+</div>
 
-<!-- ============================================================
-     CONTACT
-============================================================ -->
-<section id="contact">
-  <div class="contact-inner">
-    <div class="reveal">
-      <span class="section-label">// 04 — Contact</span>
-      <h2 class="section-title">Let's <span class="accent">Connect</span></h2>
-    </div>
-
-    <p class="contact-intro reveal">
-      Whether you have a question, opportunity, or just want to say hi —
-      my inbox is always open.
-    </p>
-
-    <div class="contact-links reveal">
-
-      <a href="mailto:youremail@example.com" class="contact-link">
-        <!-- Email icon -->
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20 4H4a2 2 0 0 0-2 2v12a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V6a2 2 0 0 0-2-2zm0 4-8 5-8-5V6l8 5 8-5v2z"/>
-        </svg>
-        Email
-      </a>
-
-      <a href="https://github.com/yourusername" target="_blank" class="contact-link">
-        <!-- GitHub icon -->
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M12 .5C5.65.5.5 5.65.5 12c0 5.1 3.3 9.42 7.88 10.95.58.1.79-.25.79-.56v-2c-3.2.7-3.87-1.54-3.87-1.54-.52-1.34-1.28-1.7-1.28-1.7-1.05-.72.08-.7.08-.7 1.16.08 1.77 1.2 1.77 1.2 1.03 1.76 2.7 1.25 3.36.96.1-.75.4-1.25.73-1.54-2.55-.29-5.24-1.28-5.24-5.7 0-1.26.45-2.29 1.19-3.1-.12-.29-.52-1.46.11-3.05 0 0 .97-.31 3.18 1.19a11.1 11.1 0 0 1 2.9-.39c.98 0 1.97.13 2.9.39 2.2-1.5 3.17-1.19 3.17-1.19.63 1.59.23 2.76.11 3.05.74.81 1.19 1.84 1.19 3.1 0 4.43-2.7 5.41-5.27 5.7.41.36.78 1.07.78 2.15v3.19c0 .31.21.67.8.56A11.51 11.51 0 0 0 23.5 12C23.5 5.65 18.35.5 12 .5z"/>
-        </svg>
-        GitHub
-      </a>
-
-      <a href="https://linkedin.com/in/yourusername" target="_blank" class="contact-link">
-        <!-- LinkedIn icon -->
-        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-          <path d="M20.45 20.45h-3.55v-5.57c0-1.33-.03-3.04-1.85-3.04-1.85 0-2.13 1.45-2.13 2.94v5.67H9.37V9h3.41v1.56h.05c.48-.9 1.64-1.85 3.37-1.85 3.6 0 4.27 2.37 4.27 5.45v6.29zM5.34 7.43a2.07 2.07 0 1 1 0-4.14 2.07 2.07 0 0 1 0 4.14zM7.12 20.45H3.56V9h3.56v11.45zM22.22 0H1.77C.79 0 0 .77 0 1.73v20.54C0 23.23.79 24 1.77 24h20.45c.98 0 1.78-.77 1.78-1.73V1.73C24 .77 23.2 0 22.22 0z"/>
-        </svg>
-        LinkedIn
-      </a>
-
-    </div>
-
-    <a href="mailto:youremail@example.com" class="btn reveal">[ Send a Message ]</a>
+<!-- ==================== ABOUT PAGE ==================== -->
+<div id="page-about" class="page">
+  <div class="sky-bg">
+    <svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,60 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 Z" fill="#fdf6e3"/>
+    </svg>
   </div>
-</section>
+
+  <div class="about-wrap">
+    <div class="about-hero">
+      <img class="about-photo"
+        src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/ed75933d-febb-48c6-bc06-db5997f59f05/QBJBozEg.jpeg"
+        alt="Lily Vengco" />
+      <div class="about-text">
+        <h1>Hey there! 👋</h1>
+        <p>My name is Lily Vengco — an artist of many specialties hailing from Massachusetts, currently based in the sunny city of Savannah, Georgia!</p>
+        <p>I'm experienced in both audio and visual arts and bring these together in every project I'm part of. As a professionally trained musician and singer, I apply rhythmic sensibility to my animations, stories, and videos — paired with 3D modeling, material design, and 2D digital art.</p>
+        <p>My passion has guided me to <strong>Immersive Reality</strong> — a field where art, sound, and technology combine to create something genuinely impactful. The idea of improving lives through both entertainment and human health is one of the greatest purposes an artist could have.</p>
+      </div>
+    </div>
+
+    <div class="skills-section">
+      <h2>Skills & Tools</h2>
+      <div class="skills-grid">
+        <div class="skill-card">
+          <h3>🎮 Game Engines</h3>
+          <p>Unreal Engine, Unity, VR Expansion Plugin, MetaXR</p>
+        </div>
+        <div class="skill-card">
+          <h3>🧊 3D & VFX</h3>
+          <p>Autodesk Maya, Blender, ZBrush, Substance Painter</p>
+        </div>
+        <div class="skill-card">
+          <h3>🎨 2D & Motion</h3>
+          <p>Clip Studio Paint, Photoshop, After Effects, Premiere Pro</p>
+        </div>
+        <div class="skill-card">
+          <h3>💻 Programming</h3>
+          <p>C++, Python, Blueprints, Unity C#</p>
+        </div>
+        <div class="skill-card">
+          <h3>🎵 Music</h3>
+          <p>Vocals, Guitar, Piano, Production</p>
+        </div>
+        <div class="skill-card">
+          <h3>🌐 Platforms</h3>
+          <p>NVIDIA Omniverse, OpenUSD, Houdini</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ==================== FOOTER ==================== -->
+<footer>
+  <div class="footer-name">Lily ★ Vengco</div>
+  <div class="footer-socials">
+    <a href="mailto:lavengco@outlook.com">Email</a>
+    <a href="https://www.instagram.com/lilyvengco/" target="_blank">Instagram</a>
+    <a href="https://www.youtube.com/channel/UC3xsCpmBGsyxOgPngeBtn0g" target="_blank">YouTube</a>
+    <a href="https://www.tiktok.com/@its.stanza" target="_blank">TikTok</a>
+  </div>
+  <p>© 2024 Lily Vengco. All rights reserved.</p>
+</footer>
+
+<script>
+  function showPage(id, linkEl, e) {
+    e.preventDefault();
+    document.querySelectorAll('.page').forEach(p => p.classList.remove('active'));
+    document.getElementById('page-' + id).classList.add('active');
+    document.querySelectorAll('.nav-sign-wrap').forEach(a => a.classList.remove('active'));
+    linkEl.classList.add('active');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+
+  function scrollToTop(e) {
+    e.preventDefault();
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+</script>
+
+</body>
+</html>
