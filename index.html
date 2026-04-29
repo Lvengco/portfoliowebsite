@@ -215,34 +215,127 @@
       margin-bottom: -2px;
     }
 
-    /* ===================== PORTFOLIO SECTION ===================== */
-    .section-title-wrap {
+    /* ===================== PORTFOLIO HERO ===================== */
+    .portfolio-hero {
+      background: linear-gradient(180deg, #7ecef4 0%, #a8dcf0 100%);
+      position: relative;
       text-align: center;
-      padding: 60px 20px 10px;
-    }
-    .section-title {
-      font-family: var(--font-display);
-      font-size: clamp(2.5rem, 6vw, 4.5rem);
-      color: var(--text-dark);
-      letter-spacing: 2px;
-    }
-    .section-subtitle {
-      font-size: 1.1rem;
-      color: var(--text-mid);
-      margin-top: 8px;
+      padding: 52px 20px 0;
+      overflow: visible;
     }
 
+    .portfolio-hero-star {
+      position: absolute;
+      top: 18px;
+      right: clamp(24px, 6vw, 120px);
+      width: clamp(60px, 8vw, 100px);
+      pointer-events: none;
+      animation: starWobble 3s ease-in-out infinite;
+    }
+    @keyframes starWobble {
+      0%, 100% { transform: rotate(-8deg) scale(1); }
+      50% { transform: rotate(8deg) scale(1.07); }
+    }
+
+    .portfolio-hero h1 {
+      font-family: var(--font-display);
+      font-size: clamp(3rem, 8vw, 5.5rem);
+      color: white;
+      text-shadow: 3px 4px 0 rgba(0,0,0,0.15);
+      letter-spacing: 2px;
+      line-height: 1;
+      margin-bottom: 12px;
+    }
+
+    .portfolio-hero p {
+      font-size: clamp(0.9rem, 2vw, 1.15rem);
+      color: rgba(255,255,255,0.92);
+      text-shadow: 0 1px 3px rgba(0,0,0,0.15);
+      margin-bottom: 0;
+    }
+
+    /* Scallop wave transition into cream */
+    .hero-scallop {
+      width: 100%;
+      display: block;
+      margin-top: 40px;
+    }
+
+    /* ===================== PORTFOLIO GRID ===================== */
     .projects-grid {
       display: grid;
       grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-      gap: 32px;
+      gap: 48px 32px;
       max-width: 1200px;
-      margin: 48px auto 80px;
-      padding: 0 40px;
+      margin: 0 auto 80px;
+      padding: 48px 40px 0;
+      align-items: end;
     }
 
+    /* ---- Bag wrapper: the whole card including the bag behind ---- */
+    .bag-card-wrap {
+      position: relative;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+    }
+
+    /* Grocery bag image sits behind the card */
+    .bag-img {
+      position: absolute;
+      bottom: 0;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 110%;
+      max-width: 340px;
+      pointer-events: none;
+      z-index: 0;
+      filter: drop-shadow(0 6px 10px rgba(0,0,0,0.12));
+    }
+
+    /* Thumbnails that peek out of the bag on hover */
+    .bag-thumbnails {
+      position: absolute;
+      bottom: 62%; /* sit just above top of bag */
+      left: 50%;
+      transform: translateX(-50%);
+      display: flex;
+      gap: 8px;
+      z-index: 2;
+      pointer-events: none;
+    }
+
+    .bag-thumb {
+      width: 72px;
+      height: 72px;
+      border-radius: 10px;
+      background: rgba(255,255,255,0.55);
+      border: 2px solid rgba(255,255,255,0.8);
+      box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+      backdrop-filter: blur(4px);
+      opacity: 0;
+      transform: translateY(28px);
+      transition: opacity 0.35s ease, transform 0.45s cubic-bezier(0.34, 1.45, 0.64, 1);
+      flex-shrink: 0;
+      overflow: hidden;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: rgba(150,120,80,0.5);
+      font-size: 1.4rem;
+    }
+
+    .bag-thumb:nth-child(2) { transition-delay: 0.06s; }
+    .bag-thumb:nth-child(3) { transition-delay: 0.12s; }
+
+    .bag-card-wrap:hover .bag-thumb {
+      opacity: 1;
+      transform: translateY(0);
+    }
+
+    /* The actual white card on top of the bag */
     .project-card {
-      background: var(--card-bg);
+      background: white;
       border-radius: 16px;
       overflow: hidden;
       box-shadow: 0 6px 0 rgba(0,0,0,0.1), 0 2px 16px rgba(0,0,0,0.08);
@@ -251,10 +344,13 @@
       text-decoration: none;
       display: block;
       color: inherit;
+      position: relative;
+      z-index: 1;
+      width: 100%;
     }
-    .project-card:hover {
-      transform: translateY(-8px) rotate(-0.5deg);
-      box-shadow: 0 14px 0 rgba(0,0,0,0.1), 0 8px 32px rgba(0,0,0,0.12);
+    .bag-card-wrap:hover .project-card {
+      transform: translateY(-6px);
+      box-shadow: 0 14px 0 rgba(0,0,0,0.09), 0 8px 32px rgba(0,0,0,0.1);
     }
 
     .project-card-img {
@@ -263,21 +359,14 @@
       object-fit: cover;
       display: block;
     }
-    .project-card-img-placeholder {
-      width: 100%;
-      height: 220px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      font-size: 3rem;
-    }
 
     .project-card-body {
-      padding: 20px 24px 24px;
+      padding: 18px 22px 22px;
     }
 
+    /* Software tags replacing the old colored category tags */
     .project-card-tag {
-      display: inline-flex;
+      display: flex;
       gap: 6px;
       flex-wrap: wrap;
       margin-bottom: 10px;
@@ -285,21 +374,23 @@
     .tag {
       font-size: 11px;
       font-weight: 700;
-      letter-spacing: 1px;
-      text-transform: uppercase;
-      padding: 3px 10px;
+      letter-spacing: 0.5px;
+      padding: 4px 11px;
       border-radius: 20px;
       color: white;
+      font-family: var(--font-body);
     }
     .tag.green  { background: var(--sign-green); }
     .tag.purple { background: var(--sign-purple); }
     .tag.brown  { background: var(--sign-brown); }
     .tag.red    { background: var(--sign-red); }
     .tag.blue   { background: #3a7fc1; }
+    .tag.teal   { background: #2a9d8f; }
+    .tag.orange { background: #e07a2f; }
 
     .project-card-title {
       font-family: var(--font-display);
-      font-size: 1.4rem;
+      font-size: 1.35rem;
       color: var(--text-dark);
       margin-bottom: 6px;
     }
@@ -309,20 +400,10 @@
       margin-bottom: 16px;
       line-height: 1.5;
     }
-    .project-card-tools {
-      display: flex;
-      flex-wrap: wrap;
-      gap: 6px;
-      font-size: 0.78rem;
-      color: var(--text-mid);
-      font-weight: 600;
-    }
-    .project-card-tools span::after { content: ' ·'; }
-    .project-card-tools span:last-child::after { content: ''; }
 
     .explore-btn {
       display: inline-block;
-      margin-top: 16px;
+      margin-top: 4px;
       padding: 10px 24px;
       background: var(--sign-green);
       color: white;
@@ -346,6 +427,8 @@
     .explore-btn.brown:hover { background: var(--sign-brown-dark); }
     .explore-btn.blue { background: #3a7fc1; }
     .explore-btn.blue:hover { background: #2a5f91; }
+    .explore-btn.red { background: var(--sign-red); }
+    .explore-btn.red:hover { background: var(--sign-red-dark); }
 
     /* ===================== ABOUT PAGE ===================== */
     .about-wrap {
@@ -511,17 +594,17 @@
       from { opacity: 0; transform: translateY(30px); }
       to   { opacity: 1; transform: translateY(0); }
     }
-    .page.active .project-card {
+    .page.active .bag-card-wrap {
       animation: floatIn 0.5s ease both;
     }
-    .page.active .project-card:nth-child(2) { animation-delay: 0.07s; }
-    .page.active .project-card:nth-child(3) { animation-delay: 0.14s; }
-    .page.active .project-card:nth-child(4) { animation-delay: 0.21s; }
+    .page.active .bag-card-wrap:nth-child(2) { animation-delay: 0.07s; }
+    .page.active .bag-card-wrap:nth-child(3) { animation-delay: 0.14s; }
+    .page.active .bag-card-wrap:nth-child(4) { animation-delay: 0.21s; }
 
     /* ===================== RESPONSIVE ===================== */
     @media (max-width: 600px) {
       #site-header { padding: 0 16px; }
-      .projects-grid { padding: 0 16px; gap: 20px; }
+      .projects-grid { padding: 48px 16px 0; gap: 56px 20px; }
       .about-wrap, .music-wrap { padding: 40px 16px 60px; }
       nav { gap: 10px; }
       .nav-sign { font-size: 14px; padding: 10px 14px; min-width: 80px; }
@@ -577,102 +660,122 @@
 <!-- ==================== PORTFOLIO PAGE ==================== -->
 <div id="page-portfolio" class="page active">
 
-  <!-- Sky hero area -->
-  <div class="sky-bg">
-    <svg class="wave-divider" viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
-      <path d="M0,60 C240,0 480,60 720,30 C960,0 1200,60 1440,30 L1440,60 Z" fill="#fdf6e3"/>
+  <!-- Blue hero with title, subtitle, star -->
+  <div class="portfolio-hero">
+    <img class="portfolio-hero-star" src="assets/images/smallSketchyStar.png" alt="" aria-hidden="true" />
+    <h1>Projects</h1>
+    <p>A collection of work across immersive tech, 3D, animation, and illustration</p>
+
+    <!-- Scallop wave into cream background -->
+    <svg class="hero-scallop" viewBox="0 0 1440 54" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+      <path d="M0,0 C60,54 120,0 180,27 C240,54 300,0 360,27 C420,54 480,0 540,27 C600,54 660,0 720,27 C780,54 840,0 900,27 C960,54 1020,0 1080,27 C1140,54 1200,0 1260,27 C1320,54 1380,0 1440,27 L1440,54 L0,54 Z" fill="#fdf6e3"/>
     </svg>
   </div>
 
-  <div class="section-title-wrap">
-    <h1 class="section-title">Projects</h1>
-    <p class="section-subtitle">A collection of work across immersive tech, 3D, animation, and illustration</p>
-  </div>
-
+  <!-- Cards grid — each card sits in a bag-card-wrap -->
   <div class="projects-grid">
 
-    <!-- Card 1: Animatics -->
-    <a class="project-card" href="https://lilyvengco.squarespace.com/project-page" target="_blank">
-      <img class="project-card-img"
-        src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/1712688691835-6MQVS1S0C1KCTMZJ2JOS/5.jpg"
-        alt="Animatics project" loading="lazy" />
-      <div class="project-card-body">
-        <div class="project-card-tag">
-          <span class="tag red">Animation</span>
-          <span class="tag brown">Motion</span>
-        </div>
-        <div class="project-card-title">Animatics, Storyboards & Motion Media</div>
-        <div class="project-card-subtitle">Sequential storytelling and motion work combining rhythm and visuals.</div>
-        <div class="project-card-tools">
-          <span>Clip Studio Paint</span>
-          <span>Premiere Pro</span>
-          <span>After Effects</span>
-          <span>Photoshop</span>
-        </div>
-        <span class="explore-btn brown">Explore →</span>
+    <!-- Card 1: Video Games (first per your request) -->
+    <div class="bag-card-wrap">
+      <!-- Thumbnails that rise out of the bag on hover -->
+      <div class="bag-thumbnails">
+        <div class="bag-thumb">🎮</div>
+        <div class="bag-thumb">🕹️</div>
+        <div class="bag-thumb">🌐</div>
       </div>
-    </a>
+      <!-- Grocery bag behind card -->
+      <img class="bag-img" src="assets/images/GroceryBagForWebsite.png" alt="" aria-hidden="true" />
+      <!-- Card -->
+      <a class="project-card" href="https://lilyvengco.squarespace.com/video-games" target="_blank">
+        <img class="project-card-img"
+          src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/1739975133245-NFPISZJ6U1CXC0JIOJEC/HighresScreenshot00000.png"
+          alt="Video Games project" loading="lazy" />
+        <div class="project-card-body">
+          <div class="project-card-tag">
+            <span class="tag green">Unreal Engine</span>
+            <span class="tag blue">Unity</span>
+            <span class="tag teal">Blender</span>
+          </div>
+          <div class="project-card-title">Video Games & Immersive Experiences</div>
+          <div class="project-card-subtitle">Real-time interactive worlds built for VR, XR, and game platforms.</div>
+          <span class="explore-btn">Explore →</span>
+        </div>
+      </a>
+    </div>
 
-    <!-- Card 2: Video Games -->
-    <a class="project-card" href="https://lilyvengco.squarespace.com/video-games" target="_blank">
-      <img class="project-card-img"
-        src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/1739975133245-NFPISZJ6U1CXC0JIOJEC/HighresScreenshot00000.png"
-        alt="Video Games project" loading="lazy" />
-      <div class="project-card-body">
-        <div class="project-card-tag">
-          <span class="tag green">VR / XR</span>
-          <span class="tag blue">Games</span>
-        </div>
-        <div class="project-card-title">Video Games & Immersive Experiences</div>
-        <div class="project-card-subtitle">Real-time interactive worlds built for VR, XR, and game platforms.</div>
-        <div class="project-card-tools">
-          <span>Unreal Engine</span>
-          <span>Unity</span>
-          <span>Blender</span>
-        </div>
-        <span class="explore-btn">Explore →</span>
+    <!-- Card 2: Animatics -->
+    <div class="bag-card-wrap">
+      <div class="bag-thumbnails">
+        <div class="bag-thumb">🎬</div>
+        <div class="bag-thumb">✏️</div>
+        <div class="bag-thumb">🎞️</div>
       </div>
-    </a>
+      <img class="bag-img" src="assets/images/GroceryBagForWebsite.png" alt="" aria-hidden="true" />
+      <a class="project-card" href="https://lilyvengco.squarespace.com/project-page" target="_blank">
+        <img class="project-card-img"
+          src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/1712688691835-6MQVS1S0C1KCTMZJ2JOS/5.jpg"
+          alt="Animatics project" loading="lazy" />
+        <div class="project-card-body">
+          <div class="project-card-tag">
+            <span class="tag red">Clip Studio Paint</span>
+            <span class="tag orange">After Effects</span>
+            <span class="tag brown">Premiere Pro</span>
+          </div>
+          <div class="project-card-title">Animatics, Storyboards & Motion Media</div>
+          <div class="project-card-subtitle">Sequential storytelling and motion work combining rhythm and visuals.</div>
+          <span class="explore-btn red">Explore →</span>
+        </div>
+      </a>
+    </div>
 
     <!-- Card 3: 3D -->
-    <a class="project-card" href="https://lilyvengco.squarespace.com/portfoliogridbasic3d" target="_blank">
-      <img class="project-card-img"
-        src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/d2aa9e94-2760-4d42-8d9d-ade81720080f/A4_Vengco_Render1.png"
-        alt="3D work" loading="lazy" />
-      <div class="project-card-body">
-        <div class="project-card-tag">
-          <span class="tag purple">3D</span>
-        </div>
-        <div class="project-card-title">3D Models, Materials & Animation</div>
-        <div class="project-card-subtitle">Sculpted characters, environment assets, and rendered scenes.</div>
-        <div class="project-card-tools">
-          <span>Autodesk Maya</span>
-          <span>Substance Painter</span>
-          <span>Blender</span>
-          <span>Photoshop</span>
-        </div>
-        <span class="explore-btn purple">Explore →</span>
+    <div class="bag-card-wrap">
+      <div class="bag-thumbnails">
+        <div class="bag-thumb">🧊</div>
+        <div class="bag-thumb">🎨</div>
+        <div class="bag-thumb">✨</div>
       </div>
-    </a>
+      <img class="bag-img" src="assets/images/GroceryBagForWebsite.png" alt="" aria-hidden="true" />
+      <a class="project-card" href="https://lilyvengco.squarespace.com/portfoliogridbasic3d" target="_blank">
+        <img class="project-card-img"
+          src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/d2aa9e94-2760-4d42-8d9d-ade81720080f/A4_Vengco_Render1.png"
+          alt="3D work" loading="lazy" />
+        <div class="project-card-body">
+          <div class="project-card-tag">
+            <span class="tag purple">Maya</span>
+            <span class="tag blue">Substance Painter</span>
+            <span class="tag teal">Blender</span>
+          </div>
+          <div class="project-card-title">3D Models, Materials & Animation</div>
+          <div class="project-card-subtitle">Sculpted characters, environment assets, and rendered scenes.</div>
+          <span class="explore-btn purple">Explore →</span>
+        </div>
+      </a>
+    </div>
 
     <!-- Card 4: 2D Illustration -->
-    <a class="project-card" href="https://lilyvengco.squarespace.com/894134257680" target="_blank">
-      <img class="project-card-img"
-        src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/d34f9408-8095-4841-8915-907412b46b2a/Wizard+Stairway.png"
-        alt="2D Illustration" loading="lazy" />
-      <div class="project-card-body">
-        <div class="project-card-tag">
-          <span class="tag green">Illustration</span>
-        </div>
-        <div class="project-card-title">2D Illustration & Character Design</div>
-        <div class="project-card-subtitle">Digital paintings, character sheets, and concept art with a storytelling eye.</div>
-        <div class="project-card-tools">
-          <span>Clip Studio Paint</span>
-          <span>Photoshop</span>
-        </div>
-        <span class="explore-btn">Explore →</span>
+    <div class="bag-card-wrap">
+      <div class="bag-thumbnails">
+        <div class="bag-thumb">🖌️</div>
+        <div class="bag-thumb">🌟</div>
+        <div class="bag-thumb">🎭</div>
       </div>
-    </a>
+      <img class="bag-img" src="assets/images/GroceryBagForWebsite.png" alt="" aria-hidden="true" />
+      <a class="project-card" href="https://lilyvengco.squarespace.com/894134257680" target="_blank">
+        <img class="project-card-img"
+          src="https://images.squarespace-cdn.com/content/v1/63e05e179b38187047c74ce1/d34f9408-8095-4841-8915-907412b46b2a/Wizard+Stairway.png"
+          alt="2D Illustration" loading="lazy" />
+        <div class="project-card-body">
+          <div class="project-card-tag">
+            <span class="tag green">Clip Studio Paint</span>
+            <span class="tag blue">Photoshop</span>
+          </div>
+          <div class="project-card-title">2D Illustration & Character Design</div>
+          <div class="project-card-subtitle">Digital paintings, character sheets, and concept art with a storytelling eye.</div>
+          <span class="explore-btn">Explore →</span>
+        </div>
+      </a>
+    </div>
 
   </div>
 </div>
@@ -764,7 +867,7 @@
     <a href="https://www.youtube.com/channel/UC3xsCpmBGsyxOgPngeBtn0g" target="_blank">YouTube</a>
     <a href="https://www.tiktok.com/@its.stanza" target="_blank">TikTok</a>
   </div>
-  <p>© 2024 Lily Vengco. All rights reserved.</p>
+  <p>© 2026 Lily Vengco. All rights reserved.</p>
 </footer>
 
 <script>
